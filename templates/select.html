@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Movie{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="heading">Select Movie</h1>
+
+    {#
+      THE RESULTS LOOP:
+      Iterates through the 'options' list passed from main.py.
+      Remember: 'options' is the raw dictionary list pulled directly
+      from the TMDB API ("api_results"), not from our SQLite database.
+    #}
+    {% for movie in options %}
+
+  <p>
+    {#
+      THE HIDDEN FORM STRATEGY:
+      Instead of a standard <a> link, we wrap each result in a form that
+      targets the '/insert' route via POST. This protects our API limits
+      by sending the data directly to our backend in one single payload.
+    #}
+    <form action="{{ url_for('insert_movie') }}" method="POST" style="display: inline;">
+
+        {#
+          DATA PACKAGING:
+          These hidden inputs map the TMDB JSON dictionary keys to
+          standard HTML form names so our Python 'request.form.get()'
+          can catch them on the other side.
+        #}
+        <input type="hidden" name="title" value="{{ movie.title }}">
+        <input type="hidden" name="date" value="{{ movie.release_date }}">
+        <input type="hidden" name="overview" value="{{ movie.overview }}">
+        <input type="hidden" name="poster_path" value="{{ movie.poster_path }}">
+
+        {#
+          THE INVISIBLE BUTTON:
+          'btn-link' strips the button background/border.
+          'p-0' removes the padding.
+          'text-decoration-none' removes the default link underline.
+          Result: A secure POST submit button that looks exactly like a clean text link!
+        #}
+        <button type="submit" class="btn btn-link p-0 text-decoration-none">
+            {{ movie.title }} - {{ movie.release_date }}
+        </button>
+
+    </form>
+  </p>
+
+{% endfor %}
+
+</div>
+{% endblock %}

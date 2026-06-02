@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Add a Movie</h1>
+
+    {#
+      FORM BEHAVIOR & BACKEND FLOW:
+      This form submits a POST request back to the '/add' route.
+      In main.py, 'add_form.validate_on_submit()' intercepts this POST,
+      extracts the user's title, and fires a secure GET request to the
+      external TMDB API using our environment variables.
+
+      The JSON response is parsed, and the 'results' list is handed
+      off to 'select.html' which dynamically renders the options.
+
+      'novalidate=True' prevents the browser from showing default
+      HTML error bubbles, forcing it to use our WTForms validation.
+    #}
+    {{ render_form(form, novalidate=True) }}
+
+</div>
+{% endblock %}

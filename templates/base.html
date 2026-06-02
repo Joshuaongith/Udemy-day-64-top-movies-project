@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    {#
+      THE STYLES BLOCK:
+      This section handles all CSS loading. By putting this in base.html,
+      every single page of our app instantly gets these fonts and styles
+      without having to copy/paste them.
+    #}
+    {% block styles %}
+
+    {#
+      BOOTSTRAP FLASK MAGIC:
+      This macro automatically generates the massive HTML <link> tags
+      required to pull in the official Bootstrap CSS framework over a CDN.
+    #}
+    {{ bootstrap.load_css() }}
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+
+    {#
+      LOCAL STATIC ROUTING:
+      'url_for' isn't just for Python routes! We use it here to securely
+      generate the exact file path to our custom 'styles.css' file sitting
+      inside our project's 'static' folder.
+    #}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    {% endblock %}
+
+    {#
+      DYNAMIC TITLE BLOCK:
+      Child templates (like add.html or index.html) will inject their specific
+      page names into this block, which changes the text in the browser tab.
+    #}
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body>
+    {#
+      DYNAMIC CONTENT BLOCK:
+      This is the primary injection zone. When a child template says
+      '{% block content %}', Jinja takes all that HTML and drops it right here.
+    #}
+    {% block content %}{% endblock %}
+  </body>
+</html>
