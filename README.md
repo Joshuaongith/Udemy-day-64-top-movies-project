@@ -1,6 +1,6 @@
 ## 🏆 Acknowledgments & Credits
 
-This project was brought to life with the help of some fantastic tools, platforms, and educational resources. 
+This project was brought to life with the combination of some tools, platforms, and educational resources. 
 
 **Data & APIs**
 * **[The Movie Database (TMDB)](https://www.themoviedb.org/documentation/api):** All movie data, search functionality, release dates, and high-resolution poster images are powered by the incredible (and free) TMDB API. 
